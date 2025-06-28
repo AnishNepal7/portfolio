@@ -1,57 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="w-full py-12 md:py-24 lg:py-32">
-    <div class="container px-4 md:px-6 mx-auto">
-        <div class="mx-auto max-w-3xl">
-            <div class="space-y-2 mb-8">
-                <a href="{{ route('projects') }}" class="inline-flex items-center text-sm text-emerald-600 hover:underline">
-                    <i class="fa-solid fa-arrow-left mr-2 h-4 w-4"></i>
-                    Back to Projects
-                </a>
-                <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{{ $project->title }}</h1>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    @foreach($project->tags as $tag)
-                    <span class="inline-flex items-center rounded-md bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
-                        {{ $tag }}
-                    </span>
-                    @endforeach
-                </div>
-            </div>
-            
-            <div class="aspect-video overflow-hidden rounded-xl mb-8">
-                <img 
-                    src="{{ asset($project->image) }}" 
-                    alt="{{ $project->title }}" 
-                    class="w-full h-full object-cover"
-                >
-            </div>
-            
-            <div class="space-y-6">
-                <div>
-                    <h2 class="text-2xl font-bold mb-4">Project Overview</h2>
-                    <p class="text-gray-500">{{ $project->description }}</p>
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    <a href="{{ route('projects') }}" class="d-inline-flex align-items-center text-success text-decoration-none small">
+                        <i class="fa-solid fa-arrow-left me-2"></i>
+                        Back to Projects
+                    </a>
+                    <h1 class="display-4 fw-bold mt-2">{{ $project->title }}</h1>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        @foreach($project->tags as $tag)
+                        <span class="badge bg-light text-dark">
+                            {{ $tag }}
+                        </span>
+                        @endforeach
+                    </div>
                 </div>
                 
-                <div class="flex flex-wrap gap-4">
-                    <a 
-                        href="{{ $project->github_url }}" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        class="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                <div class="ratio ratio-16x9 mb-4">
+                    <img 
+                        src="{{ asset($project->image) }}" 
+                        alt="{{ $project->title }}" 
+                        class="rounded object-fit-cover"
                     >
-                        <i class="fa-brands fa-github mr-2 h-4 w-4"></i>
-                        View on GitHub
-                    </a>
-                    <a 
-                        href="{{ $project->demo_url }}" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        class="inline-flex h-10 items-center justify-center rounded-md bg-emerald-600 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-emerald-700"
-                    >
-                        <i class="fa-solid fa-arrow-up-right-from-square mr-2 h-4 w-4"></i>
-                        Live Demo
-                    </a>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="mb-4">
+                        <h2 class="h3 fw-bold mb-3">Project Overview</h2>
+                        <p class="text-muted">{{ $project->description }}</p>
+                    </div>
+                    
+                    <div class="d-flex flex-wrap gap-3">
+                        <a 
+                            href="{{ $project->github_url }}" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            class="btn btn-outline-secondary"
+                        >
+                            <i class="fa-brands fa-github me-2"></i>
+                            View on GitHub
+                        </a>
+                        <a 
+                            href="{{ $project->demo_url }}" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            class="btn btn-success"
+                        >
+                            <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>
+                            Live Demo
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,36 +61,39 @@
 </section>
 
 <!-- Related Projects -->
-<section class="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-    <div class="container px-4 md:px-6 mx-auto">
-        <div class="flex flex-col items-center justify-center space-y-4 text-center">
-            <div class="space-y-2">
-                <h2 class="text-3xl font-bold tracking-tighter md:text-4xl">Related Projects</h2>
-                <p class="max-w-[700px] text-gray-500 md:text-xl">
-                    Check out some of my other projects that you might find interesting.
-                </p>
-            </div>
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Related Projects</h2>
+            <p class="lead text-muted mx-auto" style="max-width: 700px;">
+                Check out some of my other projects that you might find interesting.
+            </p>
         </div>
-        <div class="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-3">
+        <div class="row g-4 justify-content-center">
             @foreach($relatedProjects as $relatedProject)
-            <div class="group relative overflow-hidden rounded-lg border shadow-sm">
-                <div class="aspect-video overflow-hidden">
-                    <img 
-                        src="{{ asset($relatedProject->image) }}" 
-                        alt="{{ $relatedProject->title }}" 
-                        class="object-cover transition-transform duration-300 group-hover:scale-105 w-full h-full"
-                    >
-                </div>
-                <div class="p-4">
-                    <h3 class="font-bold">{{ $relatedProject->title }}</h3>
-                    <p class="text-sm text-gray-500">{{ implode(', ', $relatedProject->tags) }}</p>
-                    <div class="mt-4 flex justify-between">
-                        <a href="{{ route('projects.show', $relatedProject->id) }}" class="text-sm text-emerald-600 hover:underline">
-                            View Details
-                        </a>
-                        <a href="{{ $relatedProject->github_url }}" class="text-sm text-gray-500 hover:text-gray-900">
-                            <i class="fa-brands fa-github h-4 w-4"></i>
-                        </a>
+            <div class="col-lg-4 col-md-6">
+                <div class="card border shadow-sm h-100 overflow-hidden">
+                    <div class="ratio ratio-16x9 overflow-hidden">
+                        <img 
+                            src="{{ asset($relatedProject->image) }}" 
+                            alt="{{ $relatedProject->title }}" 
+                            class="card-img-top object-fit-cover transition-transform" 
+                            style="transition: transform 0.3s ease;"
+                            onmouseover="this.style.transform='scale(1.05)'"
+                            onmouseout="this.style.transform='scale(1)'"
+                        >
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title fw-bold">{{ $relatedProject->title }}</h3>
+                        <p class="card-text small text-muted">{{ implode(', ', $relatedProject->tags) }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="{{ route('projects.show', $relatedProject->id) }}" class="small text-success text-decoration-none">
+                                View Details
+                            </a>
+                            <a href="{{ $relatedProject->github_url }}" class="small text-muted">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,28 +103,30 @@
 </section>
 
 <!-- Call to Action -->
-<section class="w-full py-12 md:py-24 lg:py-32">
-    <div class="container px-4 md:px-6 mx-auto">
-        <div class="grid gap-6 lg:grid-cols-2 lg:gap-12">
-            <div class="flex flex-col justify-center space-y-4">
-                <div class="space-y-2">
-                    <div class="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2">
                         Let's Connect
-                    </div>
-                    <h2 class="text-3xl font-bold tracking-tighter md:text-4xl">Have a Similar Project in Mind?</h2>
-                    <p class="max-w-[600px] text-gray-500 md:text-xl">
-                        I'm currently available for freelance projects. Let's discuss how I can help bring your ideas to life.
-                    </p>
+                    </span>
                 </div>
-                <div class="flex flex-col gap-2 min-[400px]:flex-row">
-                    <a href="{{ route('contact') }}" class="inline-flex h-10 items-center justify-center rounded-md bg-emerald-600 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-emerald-700">
+                <h2 class="display-6 fw-bold mb-3">Have a Similar Project in Mind?</h2>
+                <p class="lead text-muted mb-4">
+                    I'm currently available for freelance projects. Let's discuss how I can help bring your ideas to life.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-2">
+                    <a href="{{ route('contact') }}" class="btn btn-success d-inline-flex align-items-center">
                         Get in Touch
-                        <i class="fa-solid fa-arrow-right ml-2 h-4 w-4"></i>
+                        <i class="fa-solid fa-arrow-right ms-2"></i>
                     </a>
                 </div>
             </div>
-            <div class="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last">
-                <img src="{{ asset('images/contact.jpg') }}" alt="Contact Image" class="rounded-xl object-cover w-full h-full">
+            <div class="col-lg-6">
+                <div class="ratio ratio-16x9">
+                    <img src="{{ asset('images/contact.jpg') }}" alt="Contact Image" class="rounded object-fit-cover w-100 h-100">
+                </div>
             </div>
         </div>
     </div>

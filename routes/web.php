@@ -7,6 +7,7 @@ use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,13 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 // Contact form submission
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+// Admin Authentication Routes
+Route::get('/admin/login', [AdminController::class, 'loginForm'])->name('login');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('login.submit');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('logout');
+
+// Protected Admin Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/messages', [ContactController::class, 'messages'])->name('messages');
+});
